@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像アップロードサービス</title>
+</head>
+<body>
+    <h1>画像アップロード</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required><br><br>
+        <button type="submit">アップロード</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('result').innerHTML = 
+                        '画像がアップロードされました！<br>' +
+                        '画像URL: <a href="' + data.image_url + '" target="_blank">' + data.image_url + '</a><br>' +
+                        '削除URL: <a href="' + data.delete_url + '" target="_blank">' + data.delete_url + '</a>';
+                } else {
+                    document.getElementById('result').innerText = 'エラー: ' + data.error;
+                }
+            })
+            .catch(error => {
+                document.getElementById('result').innerText = 'エラーが発生しました: ' + error;
+            });
+        });
+    </script>
+</body>
+</html>
