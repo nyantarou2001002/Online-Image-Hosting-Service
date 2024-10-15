@@ -1,5 +1,6 @@
 <?php
-$mysqli = new mysqli("127.0.0.1", "root", "password", "image_hosting", 3307);
+$mysqli = new mysqli("127.0.0.1", "root", "", "image_hosting", 3306); // ポートを3306に変更
+
 
 if ($mysqli->connect_error) {
     die("データベース接続エラー");

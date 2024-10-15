@@ -1,5 +1,7 @@
 <?php
-$mysqli = new mysqli("127.0.0.1", "root", "password", "image_hosting", 3307);
+// データベース接続
+$mysqli = new mysqli("127.0.0.1", "root", "", "image_hosting", 3306); // ポートを3306に変更
+
 
 if ($mysqli->connect_error) {
     die("データベース接続エラー");
@@ -25,8 +27,12 @@ if (isset($_GET['id'])) {
         $stmt->execute();
         $stmt->close();
 
-        // 画像を表示
-        echo "<img src='$image_path' alt='アップロード画像'>";
+        // 画像を表示するHTML
+        echo "<h1>アップロード画像</h1>";
+        //echo "<img src='$image_path' alt='アップロード画像' style='max-width: 100%; height: auto;'>";  // 画像表示の修正
+        $image_url = "/onlineImages/uploads/" . basename($image_path);
+        echo "<img src='$image_url' alt='アップロード画像' style='max-width: 100%; height: auto;'>";
+
         echo "<p>ビューカウント: " . ($view_count + 1) . "</p>";
     } else {
         echo "画像が見つかりませんでした。";
