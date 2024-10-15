@@ -16,28 +16,34 @@
 
     <script>
         document.getElementById('uploadForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var formData = new FormData(this);
+    event.preventDefault();
+    var formData = new FormData(this);
 
-            fetch('upload.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('result').innerHTML = 
-                        '画像がアップロードされました！<br>' +
-                        '画像URL: <a href="' + data.image_url + '" target="_blank">' + data.image_url + '</a><br>' +
-                        '削除URL: <a href="' + data.delete_url + '" target="_blank">' + data.delete_url + '</a>';
-                } else {
-                    document.getElementById('result').innerText = 'エラー: ' + data.error;
-                }
-            })
-            .catch(error => {
-                document.getElementById('result').innerText = 'エラーが発生しました: ' + error;
-            });
-        });
+    fetch('upload.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('HTTPエラー: ' + response.status);
+        }
+        return response.json();  // 正しいJSON形式で返されることを期待
+    })
+    .then(data => {
+        if (data.success) {
+            document.getElementById('result').innerHTML = 
+                '画像がアップロードされました！<br>' +
+                '画像URL: <a href="' + data.image_url + '" target="_blank">' + data.image_url + '</a><br>' +
+                '削除URL: <a href="' + data.delete_url + '" target="_blank">' + data.delete_url + '</a>';
+        } else {
+            document.getElementById('result').innerText = 'エラー: ' + data.error;
+        }
+    })
+    .catch(error => {
+        document.getElementById('result').innerText = 'エラーが発生しました: ' + error.message;
+    });
+});
+
     </script>
 </body>
 </html>
