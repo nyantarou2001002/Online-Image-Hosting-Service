@@ -1,7 +1,7 @@
+
 <?php
 // データベース接続
-$mysqli = new mysqli("127.0.0.1", "root", "", "image_hosting", 3306); // ポートを3306に変更
-
+$mysqli = new mysqli("127.0.0.1", "root", "", "image_hosting", 3306);
 
 if ($mysqli->connect_error) {
     die("データベース接続エラー");
@@ -27,16 +27,55 @@ if (isset($_GET['id'])) {
         $stmt->execute();
         $stmt->close();
 
-        // 画像を表示するHTML
-        echo "<h1>アップロード画像</h1>";
-        //echo "<img src='$image_path' alt='アップロード画像' style='max-width: 100%; height: auto;'>";  // 画像表示の修正
-        $image_url = "/onlineImages/uploads/" . basename($image_path);
-        echo "<img src='$image_url' alt='アップロード画像' style='max-width: 100%; height: auto;'>";
-
-        echo "<p>ビューカウント: " . ($view_count + 1) . "</p>";
+        // Tailwind CSSを使用してHTMLを表示
+        echo '<!DOCTYPE html>
+        <html lang="ja">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>画像表示</title>
+            <script src="https://cdn.tailwindcss.com"></script>
+        </head>
+        <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                <h1 class="text-2xl font-bold mb-4 text-center text-gray-700">アップロード画像</h1>
+                <div class="mb-4">
+                    <img src="/onlineImages/uploads/' . basename($image_path) . '" alt="アップロード画像" class="w-full rounded-lg shadow">
+                </div>
+                <p class="text-gray-700 text-center">ビューカウント: <span class="font-semibold">' . ($view_count + 1) . '</span></p>
+            </div>
+        </body>
+        </html>';
     } else {
-        echo "画像が見つかりませんでした。";
+        echo '<!DOCTYPE html>
+        <html lang="ja">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>エラー</title>
+            <script src="https://cdn.tailwindcss.com"></script>
+        </head>
+        <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                <p class="text-red-500 text-center">画像が見つかりませんでした。</p>
+            </div>
+        </body>
+        </html>';
     }
 } else {
-    echo "不正なリクエストです。";
+    echo '<!DOCTYPE html>
+    <html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>エラー</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <p class="text-red-500 text-center">不正なリクエストです。</p>
+        </div>
+    </body>
+    </html>';
 }
+?>

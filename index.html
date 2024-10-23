@@ -4,46 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>画像アップロードサービス</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>画像アップロード</h1>
-    <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*" required><br><br>
-        <button type="submit">アップロード</button>
-    </form>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <h1 class="text-2xl font-bold mb-4 text-center text-gray-700">画像アップロード</h1>
+        <form id="uploadForm" enctype="multipart/form-data" class="space-y-4">
+            <input type="file" name="image" accept="image/*" required class="block w-full text-gray-700 bg-gray-50 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg font-semibold hover:bg-blue-600 transition">
+                アップロード
+            </button>
+        </form>
 
-    <div id="result"></div>
+        <div id="result" class="mt-6 text-gray-700"></div>
+    </div>
 
     <script>
         document.getElementById('uploadForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    var formData = new FormData(this);
+            event.preventDefault();
+            var formData = new FormData(this);
 
-    fetch('upload.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('HTTPエラー: ' + response.status);
-        }
-        return response.json();  // 正しいJSON形式で返されることを期待
-    })
-    .then(data => {
-        if (data.success) {
-            document.getElementById('result').innerHTML = 
-                '画像がアップロードされました！<br>' +
-                '画像URL: <a href="' + data.image_url + '" target="_blank">' + data.image_url + '</a><br>' +
-                '削除URL: <a href="' + data.delete_url + '" target="_blank">' + data.delete_url + '</a>';
-        } else {
-            document.getElementById('result').innerText = 'エラー: ' + data.error;
-        }
-    })
-    .catch(error => {
-        document.getElementById('result').innerText = 'エラーが発生しました: ' + error.message;
-    });
-});
-
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('HTTPエラー: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('result').innerHTML = 
+                        '<div class="bg-green-100 text-green-800 p-4 rounded-lg">' +
+                        '画像がアップロードされました！<br>' +
+                        '画像URL: <a href="' + data.image_url + '" target="_blank" class="text-blue-500 underline">' + data.image_url + '</a><br>' +
+                        '削除URL: <a href="' + data.delete_url + '" target="_blank" class="text-blue-500 underline">' + data.delete_url + '</a>' +
+                        '</div>';
+                } else {
+                    document.getElementById('result').innerHTML = 
+                        '<div class="bg-red-100 text-red-800 p-4 rounded-lg">' +
+                        'エラー: ' + data.error +
+                        '</div>';
+                }
+            })
+            .catch(error => {
+                document.getElementById('result').innerHTML = 
+                    '<div class="bg-red-100 text-red-800 p-4 rounded-lg">' +
+                    'エラーが発生しました: ' + error.message +
+                    '</div>';
+            });
+        });
     </script>
 </body>
 </html>
