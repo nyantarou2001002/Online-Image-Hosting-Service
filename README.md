@@ -24,7 +24,9 @@ https://github.com/user-attachments/assets/154a30d7-50b0-4963-a926-a635a52f03ff
 「ファイルを選択」ボタンを押してアップロードしたい画像を選択して「アップロード」ボタンを押します。
 
 そうすると下記の写真のように画像URLと削除URLが表示されます。
-![スクリーンショット 2024-10-17 7 57 06](https://github.com/user-attachments/assets/743c0f71-8e2f-485d-aadf-5c8b524de783)
+![スクリーンショット 2024-10-24 15 34 10](https://github.com/user-attachments/assets/ba185f91-9b97-47f1-934d-8f6fa0ccc423)
+
+
 
 その後は画像URLをクリックすると下記の写真のように画像とビューカウントが示されます。
 
