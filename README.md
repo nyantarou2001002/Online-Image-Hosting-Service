@@ -37,6 +37,6 @@ https://github.com/user-attachments/assets/154a30d7-50b0-4963-a926-a635a52f03ff
 
 # 使用技術
 
-PHP, MySQL, HTML, CSS, Javascript, Amazon AWS, Amazon EC2, Amazon RDB, NGINX, DOCKER
+PHP, MySQL, HTML, CSS, TailwindCSS, Javascript, Amazon AWS, Amazon EC2, Amazon RDB, NGINX, DOCKER
 
 
