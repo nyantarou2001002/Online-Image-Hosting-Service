@@ -30,7 +30,8 @@ https://github.com/user-attachments/assets/154a30d7-50b0-4963-a926-a635a52f03ff
 
 その後は画像URLをクリックすると下記の写真のように画像とビューカウントが示されます。
 
-![スクリーンショット 2024-10-17 8 00 21](https://github.com/user-attachments/assets/b21df8c6-7e67-4b1f-af23-b7732fa0003e)
+![スクリーンショット 2024-10-24 15 35 52](https://github.com/user-attachments/assets/c96463c5-d360-4d81-9d24-f076f1ef2a87)
+
 
 また削除用URLをクリックすると画像用URLを無効化することができます。
 
